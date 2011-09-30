@@ -1,27 +1,28 @@
+#include <iostream>
 #include <stdio.h>
-#include <string.h>
 
 #include <vector>
 
 #include "compiler.h"
 #include "vm.h"
 
-int main() {
-	char expression[] = "5 + ((1 + 2) * 4) - 3";
+using namespace std;
+
+int main (int argc, const char * argv[]) {
+	char expression[] = "(1/4) * (4 - 1/2)";
 
 	yuka::Compiler *compiler = new yuka::Compiler();
 	yuka::ByteCode *bc = compiler->compile(expression, strlen(expression));
-
+	
 	yuka::VM *vm = new yuka::VM;
-	int result = vm->run(bc);
+	yuka::t_yuka_value result = vm->run(bc);
+
+	cout << "Result: " << result.int_value << endl;
+	cout << "Result: " << result.float_value << endl;
 
 	delete bc;
 	delete compiler;
 	delete vm;
-
-	//FILE *f = fopen("exp.ybc", "wb");
-	//fwrite(bc->getCode(), 1, bc->getSize(), f);
-	//fclose(f);
 
 	return 0;
 }

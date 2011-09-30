@@ -44,7 +44,7 @@ namespace yuka {
 
 
 
-/* #line 48 "src/parser.cpp" */
+/* #line 2 "src\\parser.cpp" */
 static const char _yuka_script_actions[] = {
 	0, 1, 0, 1, 1, 1, 2, 1, 
 	3, 1, 4, 1, 5, 1, 6, 1, 
@@ -126,7 +126,7 @@ TokenObjVector Parser::parse(char *data, size_t len) {
 	//int curline = 1;
 
 	
-/* #line 130 "src/parser.cpp" */
+/* #line 59 "src\\parser.cpp" */
 	{
 	cs = yuka_script_start;
 	ts = 0;
@@ -137,7 +137,7 @@ TokenObjVector Parser::parse(char *data, size_t len) {
 /* #line 148 "parser.rl" */
 
 	
-/* #line 141 "src/parser.cpp" */
+/* #line 65 "src\\parser.cpp" */
 	{
 	int _klen;
 	unsigned int _trans;
@@ -158,7 +158,7 @@ _resume:
 /* #line 1 "NONE" */
 	{ts = p;}
 	break;
-/* #line 162 "src/parser.cpp" */
+/* #line 84 "src\\parser.cpp" */
 		}
 	}
 
@@ -292,7 +292,7 @@ _eof_trans:
 		  YUKA_DEBUGF("number %f\n", atof(number))
 
 		  TokenObj *obj = new TokenObj(Token_Number);
-		  obj->setFloatValue(atof(number));
+		  obj->setFloatValue(static_cast<float>(atof(number)));
 
 		  tokens.push_back(obj);
     }}
@@ -301,7 +301,7 @@ _eof_trans:
 /* #line 121 "parser.rl" */
 	{te = p;p--;}
 	break;
-/* #line 305 "src/parser.cpp" */
+/* #line 217 "src\\parser.cpp" */
 		}
 	}
 
@@ -314,7 +314,7 @@ _again:
 /* #line 1 "NONE" */
 	{ts = 0;}
 	break;
-/* #line 318 "src/parser.cpp" */
+/* #line 228 "src\\parser.cpp" */
 		}
 	}
 

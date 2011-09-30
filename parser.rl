@@ -112,7 +112,7 @@ namespace yuka {
 		  YUKA_DEBUGF("number %f\n", atof(number))
 
 		  TokenObj *obj = new TokenObj(Token_Number);
-		  obj->setFloatValue(atof(number));
+		  obj->setFloatValue(static_cast<float>(atof(number)));
 
 		  tokens.push_back(obj);
     };
