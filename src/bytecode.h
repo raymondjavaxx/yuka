@@ -36,6 +36,7 @@ namespace yuka {
 		const char * getCode();
 
 		void newInteger(int n);
+		void newFloat(float n);
 		void addOpcode(Opcode op);
 
 	private:

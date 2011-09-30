@@ -66,6 +66,13 @@ void ByteCode::newInteger(int n) {
 	m_size += sizeof(n);
 }
 
+void ByteCode::newFloat(float n) {
+	addOpcode(op_new_float);
+	resize(sizeof(float));
+	memcpy(m_code+m_size, &n, sizeof(n));
+	m_size += sizeof(n);
+}
+
 void ByteCode::resize(unsigned int s) {
 	unsigned int new_size = m_size + s;
 

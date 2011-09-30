@@ -106,6 +106,17 @@ namespace yuka {
 			tokens.push_back(obj);
 		};
 
+    digit* '.' digit+ | digit+ '.' {
+		  char number[32] = {0};
+		  strncpy(number, ts, MIN(te-ts, 32));
+		  YUKA_DEBUGF("number %f\n", atof(number))
+
+		  TokenObj *obj = new TokenObj(Token_Number);
+		  obj->setFloatValue(atof(number));
+
+		  tokens.push_back(obj);
+    };
+
 		# consume whitespace
 		(any - 33..126)+;
 	*|;
@@ -131,7 +142,7 @@ TokenObjVector Parser::parse(char *data, size_t len) {
 	char *ts;
 	char *te;
 	char *eof = pe;
-	int curline = 1;
+	//int curline = 1;
 
 	%% write init;
 

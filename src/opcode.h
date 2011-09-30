@@ -27,6 +27,7 @@ namespace yuka {
 		op_noop = 0x00,
 		op_eof,
 		op_new_integer,
+		op_new_float,
 		op_add,
 		op_sub,
 		op_mul,

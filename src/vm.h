@@ -23,16 +23,17 @@
 
 #include <stack>
 #include "bytecode.h"
+#include "parser.h"
 
 namespace yuka {
 
 	class VM
 	{
 	public:
-		int run(ByteCode *bc);
+		t_yuka_value run(ByteCode *bc);
 
 	private:
-		std::stack<int> m_stack;
+		std::stack<t_yuka_value> m_stack;
 	};
 };
 

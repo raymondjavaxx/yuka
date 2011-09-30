@@ -47,8 +47,13 @@ ByteCode *Compiler::compile(char *data, size_t len) {
 		switch (token->getType())
 		{
 		case Token_Number: {
-			YUKA_DEBUGF("number %d\n", token->getIntValue());
-			bc->newInteger(token->getIntValue());
+			if (token->getValueType() == ValueType_Integer) {
+				YUKA_DEBUGF("number %d\n", token->getIntValue());
+				bc->newInteger(token->getIntValue());
+			} else {
+				YUKA_DEBUGF("number %f\n", token->getFloatValue());
+				bc->newFloat(token->getFloatValue());
+			}
 		}
 		break;
 

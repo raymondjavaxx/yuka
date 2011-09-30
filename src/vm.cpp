@@ -23,7 +23,24 @@
 
 namespace yuka {
 
-int VM::run(ByteCode *bc) {
+static inline float FloatValue(t_yuka_value v) {
+	if (v.type == ValueType_Float) {
+		return v.float_value;
+	}
+
+	return static_cast<float>(v.int_value);
+}
+
+static inline int IntegerValue(t_yuka_value v) {
+	if (v.type == ValueType_Integer) {
+		return v.int_value;
+	}
+
+	return static_cast<int>(v.float_value);
+}
+
+
+t_yuka_value VM::run(ByteCode *bc) {
 	const char *code = bc->getCode();
 	int code_size = bc->getSize();
 	int code_pos = 0;
@@ -34,58 +51,114 @@ int VM::run(ByteCode *bc) {
 		switch (op)
 		{
 		case op_new_integer: {
-			int n;
-			memcpy(&n, code+code_pos, sizeof(int));
-			m_stack.push(n);
+			t_yuka_value v;
+			memset(&v, 0, sizeof(t_yuka_value));
+			v.type = ValueType_Integer;
+			memcpy(&v.int_value, code+code_pos, sizeof(int));
+
+			m_stack.push(v);
+
+			code_pos += sizeof(int);
+		}
+		break;
+
+		case op_new_float: {
+			t_yuka_value v;
+			memset(&v, 0, sizeof(t_yuka_value));
+			v.type = ValueType_Float;
+			memcpy(&v.float_value, code+code_pos, sizeof(int));
+
+			m_stack.push(v);
+			
 			code_pos += sizeof(int);
 		}
 		break;
 
 		case op_add: {
-			int a = m_stack.top();
+			t_yuka_value a = m_stack.top();
 			m_stack.pop();
 
-			int b = m_stack.top();
+			t_yuka_value b = m_stack.top();
 			m_stack.pop();
 
-			int c = b + a;
-			m_stack.push(c);
+			t_yuka_value v;
+			memset(&v, 0, sizeof(t_yuka_value));
+
+			if (a.type == ValueType_Float || b.type == ValueType_Float) {
+				v.type = ValueType_Float;
+				v.float_value = FloatValue(a) + FloatValue(b);
+			} else {
+				v.type = ValueType_Integer;
+				v.int_value = IntegerValue(a) + IntegerValue(b);
+			}
+
+			m_stack.push(v);
 		}
 		break;
 
 		case op_sub: {
-			int a = m_stack.top();
+			t_yuka_value a = m_stack.top();
 			m_stack.pop();
 
-			int b = m_stack.top();
+			t_yuka_value b = m_stack.top();
 			m_stack.pop();
 
-			int c = b - a;
-			m_stack.push(c);
+			t_yuka_value v;
+			memset(&v, 0, sizeof(t_yuka_value));
+			
+			if (a.type == ValueType_Float || b.type == ValueType_Float) {
+				v.type = ValueType_Float;
+				v.float_value = FloatValue(b) - FloatValue(a);
+			} else {
+				v.type = ValueType_Integer;
+				v.int_value = IntegerValue(b) - IntegerValue(a);
+			}
+			
+			m_stack.push(v);
 		}
 		break;
 
 		case op_mul: {
-			int a = m_stack.top();
+			t_yuka_value a = m_stack.top();
 			m_stack.pop();
 
-			int b = m_stack.top();
+			t_yuka_value b = m_stack.top();
 			m_stack.pop();
 
-			int c = b * a;
-			m_stack.push(c);
+			t_yuka_value v;
+			memset(&v, 0, sizeof(t_yuka_value));
+
+			if (a.type == ValueType_Float || b.type == ValueType_Float) {
+				v.type = ValueType_Float;
+				v.float_value = FloatValue(b) * FloatValue(a);
+			} else {
+				v.type = ValueType_Integer;
+				v.int_value = IntegerValue(b) * IntegerValue(a);
+			}
+
+			m_stack.push(v);
 		}
 		break;
 
 		case op_div: {
-			int a = m_stack.top();
+			t_yuka_value a = m_stack.top();
 			m_stack.pop();
-
-			int b = m_stack.top();
+			
+			t_yuka_value b = m_stack.top();
 			m_stack.pop();
-
-			int c = b / a;
-			m_stack.push(c);
+			
+			t_yuka_value v;
+			memset(&v, 0, sizeof(t_yuka_value));
+			
+			//if (a.type == ValueType_Float || b.type == ValueType_Float) {
+				v.type = ValueType_Float;
+				v.float_value = FloatValue(b) / FloatValue(a);
+			//} else {
+			//	v.type = ValueType_Integer;
+			//	v.int_value = IntegerValue(b) / IntegerValue(a);
+			//}
+			
+			m_stack.push(v);
 		}
 		break;
 

@@ -36,20 +36,55 @@ namespace yuka {
 		Token_CloseParentesis
 	};
 
+	enum ValueType {
+		ValueType_Invalid = 0,
+		ValueType_Integer,
+		ValueType_Float
+	};
+
+	typedef struct {
+		ValueType type;
+		int int_value;
+		float float_value;
+	} t_yuka_value;
+
 	class TokenObj
 	{
 	public:
 		TokenObj(Token type) {
 			m_type = type;
 			m_int_value = 0;
+			memset(&m_value, 0, sizeof(t_yuka_value));
+		}
+
+		ValueType getValueType() {
+			return m_value.type;
 		}
 
 		void setIntValue(int value) {
-			m_int_value = value;
+			m_value.type = ValueType_Integer;
+			m_value.int_value = value;
+		}
+		
+		int getIntValue() {
+			return m_value.int_value;
 		}
 
-		int getIntValue() {
-			return m_int_value;
+		void setFloatValue(float value) {
+			m_value.type = ValueType_Float;
+			m_value.float_value = value;
+		}
+
+		float getFloatValue() {
+			return m_value.float_value;
+		}
+
+		void setValue(t_yuka_value value) {
+			m_value = value;
+		}
+
+		t_yuka_value getValue() {
+			return m_value;
 		}
 
 		Token getType() {
@@ -66,6 +101,7 @@ namespace yuka {
 	protected:
 		Token m_type;
 		int m_int_value;
+		t_yuka_value m_value;
 	};
 
 	typedef std::vector<TokenObj*> TokenObjVector;
