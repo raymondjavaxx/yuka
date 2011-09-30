@@ -55,6 +55,8 @@ namespace yuka {
 		sub_operator = '-';
 		mul_operator = '*';
 		div_operator = '/';
+		
+		exponentiation = '^';
 
 		parentesis_open = '(';
 		parentesis_close = ')';
@@ -92,6 +94,12 @@ namespace yuka {
 		div_operator {
 			YUKA_DEBUG("div\n")
 			TokenObj *obj = new TokenObj(Token_Div);
+			tokens.push_back(obj);
+		};
+
+		exponentiation {
+			YUKA_DEBUG("exp\n")
+			TokenObj *obj = new TokenObj(Token_Pow);
 			tokens.push_back(obj);
 		};
 

@@ -9,7 +9,7 @@
 using namespace std;
 
 int main (int argc, const char * argv[]) {
-	char expression[] = "(1/4) * (4 - 1/2)";
+	char expression[] = "5 ^ 2";
 
 	yuka::Compiler *compiler = new yuka::Compiler();
 	yuka::ByteCode *bc = compiler->compile(expression, strlen(expression));

@@ -57,6 +57,12 @@ ByteCode *Compiler::compile(char *data, size_t len) {
 		}
 		break;
 
+		case Token_Pow: {
+			YUKA_DEBUG("exp\n");
+			bc->addOpcode(op_pow);
+		}
+		break;
+
 		case Token_Add: {
 			YUKA_DEBUG("add\n");
 			bc->addOpcode(op_add);

@@ -32,6 +32,7 @@ namespace yuka {
 		Token_Div,
 		Token_Mul,
 		Token_Number,
+		Token_Pow,
 		Token_OpenParentesis,
 		Token_CloseParentesis
 	};
@@ -95,7 +96,8 @@ namespace yuka {
 			return m_type == Token_Add ||
 				m_type == Token_Sub ||
 				m_type == Token_Div ||
-				m_type == Token_Mul;
+				m_type == Token_Mul ||
+				m_type == Token_Pow;
 		}
 
 	protected:

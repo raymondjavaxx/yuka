@@ -18,6 +18,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#include <math.h>
 #include "vm.h"
 #include "opcode.h"
 
@@ -137,6 +138,18 @@ t_yuka_value VM::run(ByteCode *bc) {
 
 			t_yuka_value v = MakeFloat(FloatValue(b) / FloatValue(a));
 			m_stack.push(v);
+		}
+		break;
+
+		case op_pow: {
+			t_yuka_value exponent = m_stack.top();
+			m_stack.pop();
+
+			t_yuka_value base = m_stack.top();
+			m_stack.pop();
+
+			t_yuka_value result = MakeFloat(::pow(FloatValue(base), FloatValue(exponent)));
+			m_stack.push(result);
 		}
 		break;
 
