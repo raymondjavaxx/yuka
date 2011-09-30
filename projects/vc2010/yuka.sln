@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yuka", "yuka.vcxproj", "{48ED9B4C-D725-4B59-B47A-316F55695BF9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48ED9B4C-D725-4B59-B47A-316F55695BF9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{48ED9B4C-D725-4B59-B47A-316F55695BF9}.Debug|Win32.Build.0 = Debug|Win32
+		{48ED9B4C-D725-4B59-B47A-316F55695BF9}.Release|Win32.ActiveCfg = Release|Win32
+		{48ED9B4C-D725-4B59-B47A-316F55695BF9}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

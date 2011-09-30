@@ -1,0 +1,12 @@
+*.suo
+*.sdf
+*.opensdf
+*.filters
+*.user
+*.ipch
+projects/vc2010/Debug/*
+projects/vc2010/Release/*
+
+Ã##mac
+.DS_Store
+
