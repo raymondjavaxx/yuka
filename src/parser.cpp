@@ -44,7 +44,7 @@ namespace yuka {
 
 
 
-/* #line 2 "src\\parser.cpp" */
+/* #line 48 "src/parser.cpp" */
 static const char _yuka_script_actions[] = {
 	0, 1, 0, 1, 1, 1, 2, 1, 
 	3, 1, 4, 1, 5, 1, 6, 1, 
@@ -119,14 +119,14 @@ TokenObjVector Parser::parse(char *data, size_t len) {
 	char *p = data;
 	char *pe = data + len;
 	int cs;
-	int act;
+	//int act;
 	char *ts;
 	char *te;
 	char *eof = pe;
 	//int curline = 1;
 
 	
-/* #line 59 "src\\parser.cpp" */
+/* #line 130 "src/parser.cpp" */
 	{
 	cs = yuka_script_start;
 	ts = 0;
@@ -137,7 +137,7 @@ TokenObjVector Parser::parse(char *data, size_t len) {
 /* #line 148 "parser.rl" */
 
 	
-/* #line 65 "src\\parser.cpp" */
+/* #line 141 "src/parser.cpp" */
 	{
 	int _klen;
 	unsigned int _trans;
@@ -158,7 +158,7 @@ _resume:
 /* #line 1 "NONE" */
 	{ts = p;}
 	break;
-/* #line 84 "src\\parser.cpp" */
+/* #line 162 "src/parser.cpp" */
 		}
 	}
 
@@ -180,7 +180,7 @@ _resume:
 			else if ( (*p) > *_mid )
 				_lower = _mid + 1;
 			else {
-				_trans += (unsigned int)(_mid - _keys);
+				_trans += (_mid - _keys);
 				goto _match;
 			}
 		}
@@ -203,7 +203,7 @@ _resume:
 			else if ( (*p) > _mid[1] )
 				_lower = _mid + 2;
 			else {
-				_trans += (unsigned int)((_mid - _keys)>>1);
+				_trans += ((_mid - _keys)>>1);
 				goto _match;
 			}
 		}
@@ -301,7 +301,7 @@ _eof_trans:
 /* #line 121 "parser.rl" */
 	{te = p;p--;}
 	break;
-/* #line 217 "src\\parser.cpp" */
+/* #line 305 "src/parser.cpp" */
 		}
 	}
 
@@ -314,7 +314,7 @@ _again:
 /* #line 1 "NONE" */
 	{ts = 0;}
 	break;
-/* #line 228 "src\\parser.cpp" */
+/* #line 318 "src/parser.cpp" */
 		}
 	}
 

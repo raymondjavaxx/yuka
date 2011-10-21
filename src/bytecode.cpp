@@ -18,7 +18,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include "ByteCode.h"
+#include "bytecode.h"
 
 #include <stdlib.h>
 #include <memory.h>
@@ -30,7 +30,7 @@ const int kDefaultBufferSize = 32;
 
 ByteCode::ByteCode() {
 	m_code = (char*)malloc(kDefaultBufferSize);
-	memset(m_code, NULL, kDefaultBufferSize);
+	memset(m_code, 0, kDefaultBufferSize);
 	m_buffer_size = kDefaultBufferSize;
 	m_size = 0;
 }

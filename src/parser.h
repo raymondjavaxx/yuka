@@ -21,6 +21,7 @@
 #ifndef _YUKA_PARSER_H
 #define _YUKA_PARSER_H
 
+#include <string.h>
 #include <vector>
 
 namespace yuka {
@@ -54,7 +55,7 @@ namespace yuka {
 		TokenObj(Token type) {
 			m_type = type;
 			m_int_value = 0;
-			memset(&m_value, 0, sizeof(t_yuka_value));
+			::memset(&m_value, 0, sizeof(t_yuka_value));
 		}
 
 		ValueType getValueType() {
