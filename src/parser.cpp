@@ -1,3 +1,4 @@
+
 /* #line 1 "parser.rl" */
 //
 // Copyright (c) 2011 Ramon E. Torres Salomon
@@ -39,29 +40,30 @@
 namespace yuka {
 
 
-/* #line 123 "parser.rl" */
+/* #line 131 "parser.rl" */
 
 
 
-/* #line 48 "src/parser.cpp" */
+/* #line 2 "src\\parser.cpp" */
 static const char _yuka_script_actions[] = {
 	0, 1, 0, 1, 1, 1, 2, 1, 
 	3, 1, 4, 1, 5, 1, 6, 1, 
-	7, 1, 8, 1, 9, 1, 10
+	7, 1, 8, 1, 9, 1, 10, 1, 
+	11
 };
 
 static const char _yuka_script_key_offsets[] = {
-	0, 0, 2, 15, 17, 19
+	0, 0, 2, 16, 18, 20
 };
 
 static const char _yuka_script_trans_keys[] = {
 	48, 57, 40, 41, 42, 43, 45, 46, 
-	47, 33, 44, 48, 57, 58, 126, 33, 
-	126, 48, 57, 46, 48, 57, 0
+	47, 94, 33, 44, 48, 57, 58, 126, 
+	33, 126, 48, 57, 46, 48, 57, 0
 };
 
 static const char _yuka_script_single_lengths[] = {
-	0, 0, 7, 0, 0, 1
+	0, 0, 8, 0, 0, 1
 };
 
 static const char _yuka_script_range_lengths[] = {
@@ -69,19 +71,21 @@ static const char _yuka_script_range_lengths[] = {
 };
 
 static const char _yuka_script_index_offsets[] = {
-	0, 0, 2, 13, 15, 17
+	0, 0, 2, 14, 16, 18
 };
 
 static const char _yuka_script_trans_targs[] = {
 	4, 0, 2, 2, 2, 2, 2, 1, 
-	2, 0, 5, 0, 3, 2, 3, 4, 
-	2, 4, 5, 2, 2, 2, 2, 0
+	2, 2, 0, 5, 0, 3, 2, 3, 
+	4, 2, 4, 5, 2, 2, 2, 2, 
+	0
 };
 
 static const char _yuka_script_trans_actions[] = {
 	0, 0, 5, 7, 13, 9, 11, 0, 
-	15, 0, 0, 0, 0, 21, 0, 0, 
-	19, 0, 0, 17, 21, 19, 17, 0
+	15, 17, 0, 0, 0, 0, 23, 0, 
+	0, 21, 0, 0, 19, 23, 21, 19, 
+	0
 };
 
 static const char _yuka_script_to_state_actions[] = {
@@ -93,7 +97,7 @@ static const char _yuka_script_from_state_actions[] = {
 };
 
 static const char _yuka_script_eof_trans[] = {
-	0, 0, 0, 21, 22, 23
+	0, 0, 0, 22, 23, 24
 };
 
 static const int yuka_script_start = 2;
@@ -102,7 +106,7 @@ static const int yuka_script_error = 0;
 static const int yuka_script_en_main = 2;
 
 
-/* #line 126 "parser.rl" */
+/* #line 134 "parser.rl" */
 
 Parser::Parser() {
 	// construct
@@ -119,13 +123,13 @@ TokenObjVector Parser::parse(const char *data, size_t len) {
 	const char *pe = data + len;
 	int cs;
 	int act;
-	const char *ts;
-	const char *te;
-	const char *eof = pe;
+	char *ts;
+	char *te;
+	char *eof = pe;
 	//int curline = 1;
 
 	
-/* #line 130 "src/parser.cpp" */
+/* #line 62 "src\\parser.cpp" */
 	{
 	cs = yuka_script_start;
 	ts = 0;
@@ -133,10 +137,10 @@ TokenObjVector Parser::parse(const char *data, size_t len) {
 	act = 0;
 	}
 
-/* #line 148 "parser.rl" */
+/* #line 156 "parser.rl" */
 
 	
-/* #line 141 "src/parser.cpp" */
+/* #line 68 "src\\parser.cpp" */
 	{
 	int _klen;
 	unsigned int _trans;
@@ -157,7 +161,7 @@ _resume:
 /* #line 1 "NONE" */
 	{ts = p;}
 	break;
-/* #line 162 "src/parser.cpp" */
+/* #line 87 "src\\parser.cpp" */
 		}
 	}
 
@@ -179,7 +183,7 @@ _resume:
 			else if ( (*p) > *_mid )
 				_lower = _mid + 1;
 			else {
-				_trans += (_mid - _keys);
+				_trans += (unsigned int)(_mid - _keys);
 				goto _match;
 			}
 		}
@@ -202,7 +206,7 @@ _resume:
 			else if ( (*p) > _mid[1] )
 				_lower = _mid + 2;
 			else {
-				_trans += ((_mid - _keys)>>1);
+				_trans += (unsigned int)((_mid - _keys)>>1);
 				goto _match;
 			}
 		}
@@ -223,7 +227,7 @@ _eof_trans:
 		switch ( *_acts++ )
 		{
 	case 2:
-/* #line 62 "parser.rl" */
+/* #line 64 "parser.rl" */
 	{te = p+1;{
 			YUKA_DEBUG("open parentesis\n")
 			TokenObj *obj = new TokenObj(Token_OpenParentesis);
@@ -231,7 +235,7 @@ _eof_trans:
 		}}
 	break;
 	case 3:
-/* #line 68 "parser.rl" */
+/* #line 70 "parser.rl" */
 	{te = p+1;{
 			YUKA_DEBUG("close parentesis\n")
 			TokenObj *obj = new TokenObj(Token_CloseParentesis);
@@ -239,7 +243,7 @@ _eof_trans:
 		}}
 	break;
 	case 4:
-/* #line 74 "parser.rl" */
+/* #line 76 "parser.rl" */
 	{te = p+1;{
 			YUKA_DEBUG("plus\n")
 			TokenObj *obj = new TokenObj(Token_Add);
@@ -247,7 +251,7 @@ _eof_trans:
 		}}
 	break;
 	case 5:
-/* #line 80 "parser.rl" */
+/* #line 82 "parser.rl" */
 	{te = p+1;{
 			YUKA_DEBUG("minus\n")
 			TokenObj *obj = new TokenObj(Token_Sub);
@@ -255,7 +259,7 @@ _eof_trans:
 		}}
 	break;
 	case 6:
-/* #line 86 "parser.rl" */
+/* #line 88 "parser.rl" */
 	{te = p+1;{
 			YUKA_DEBUG("mul\n")
 			TokenObj *obj = new TokenObj(Token_Mul);
@@ -263,7 +267,7 @@ _eof_trans:
 		}}
 	break;
 	case 7:
-/* #line 92 "parser.rl" */
+/* #line 94 "parser.rl" */
 	{te = p+1;{
 			YUKA_DEBUG("div\n")
 			TokenObj *obj = new TokenObj(Token_Div);
@@ -271,7 +275,15 @@ _eof_trans:
 		}}
 	break;
 	case 8:
-/* #line 98 "parser.rl" */
+/* #line 100 "parser.rl" */
+	{te = p+1;{
+			YUKA_DEBUG("exp\n")
+			TokenObj *obj = new TokenObj(Token_Pow);
+			tokens.push_back(obj);
+		}}
+	break;
+	case 9:
+/* #line 106 "parser.rl" */
 	{te = p;p--;{
 			char number[32] = {0};
 			strncpy(number, ts, MIN(te-ts, 32));
@@ -283,8 +295,8 @@ _eof_trans:
 			tokens.push_back(obj);
 		}}
 	break;
-	case 9:
-/* #line 109 "parser.rl" */
+	case 10:
+/* #line 117 "parser.rl" */
 	{te = p;p--;{
 		  char number[32] = {0};
 		  strncpy(number, ts, MIN(te-ts, 32));
@@ -296,11 +308,11 @@ _eof_trans:
 		  tokens.push_back(obj);
     }}
 	break;
-	case 10:
-/* #line 121 "parser.rl" */
+	case 11:
+/* #line 129 "parser.rl" */
 	{te = p;p--;}
 	break;
-/* #line 305 "src/parser.cpp" */
+/* #line 227 "src\\parser.cpp" */
 		}
 	}
 
@@ -313,7 +325,7 @@ _again:
 /* #line 1 "NONE" */
 	{ts = 0;}
 	break;
-/* #line 318 "src/parser.cpp" */
+/* #line 238 "src\\parser.cpp" */
 		}
 	}
 
@@ -333,7 +345,7 @@ _again:
 	_out: {}
 	}
 
-/* #line 150 "parser.rl" */
+/* #line 158 "parser.rl" */
 
 	if (cs == yuka_script_error) {
 		fprintf(stderr, "PARSE ERROR\n");
