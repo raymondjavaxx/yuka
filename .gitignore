@@ -7,6 +7,9 @@
 projects/vc2010/Debug/*
 projects/vc2010/Release/*
 
-Ã##mac
+*.o
+/yuka
+
+# mac
 .DS_Store
 

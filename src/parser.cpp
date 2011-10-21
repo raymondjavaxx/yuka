@@ -119,7 +119,7 @@ TokenObjVector Parser::parse(char *data, size_t len) {
 	char *p = data;
 	char *pe = data + len;
 	int cs;
-	//int act;
+	int act;
 	char *ts;
 	char *te;
 	char *eof = pe;
