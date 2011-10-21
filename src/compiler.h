@@ -29,7 +29,7 @@ namespace yuka {
 	class Compiler
 	{
 	public:
-		ByteCode *compile(char *data, size_t len);
+		ByteCode *compile(const char *data, size_t len);
 	
 	private:
 		TokenObjVector shuntingYard(TokenObjVector tokens);

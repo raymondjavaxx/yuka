@@ -18,68 +18,38 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include "bytecode.h"
-
-#include <stdlib.h>
-#include <memory.h>
+#include <iostream>
+#include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
-namespace yuka {
+#include "compiler.h"
+#include "vm.h"
 
-const int kDefaultBufferSize = 32;
+using namespace std;
 
-ByteCode::ByteCode() {
-	m_code = (char*)malloc(kDefaultBufferSize);
-	memset(m_code, 0, kDefaultBufferSize);
-	m_buffer_size = kDefaultBufferSize;
-	m_size = 0;
-}
-
-ByteCode::~ByteCode() {
-	free(m_code);
-}
-
-ByteCode::ByteCode(char *c, unsigned int s) {
-	m_code = (char*)malloc(s);
-	memcpy(m_code, c, s);
-	m_size = s;
-	m_buffer_size = s;
-}
-
-const char *ByteCode::getCode() {
-	return m_code;
-}
-
-unsigned int ByteCode::getSize() {
-	return m_size;
-}
-
-void ByteCode::addOpcode(Opcode op) {
-	resize(sizeof(char));
-	m_code[m_size++] = op;
-}
-
-void ByteCode::newInteger(int n) {
-	addOpcode(op_new_integer);
-	resize(sizeof(int));
-	memcpy(m_code+m_size, &n, sizeof(n));
-	m_size += sizeof(n);
-}
-
-void ByteCode::newFloat(float n) {
-	addOpcode(op_new_float);
-	resize(sizeof(float));
-	memcpy(m_code+m_size, &n, sizeof(n));
-	m_size += sizeof(n);
-}
-
-void ByteCode::resize(unsigned int s) {
-	unsigned int new_size = m_size + s;
-
-	if (new_size > m_buffer_size) {
-		m_buffer_size = (new_size * 2);
-		m_code = (char*)realloc(m_code, m_buffer_size);
+int main (int argc, const char * argv[]) {
+	if (argc != 2) {
+		cout << "Usage: " << argv[0] << " expr" << endl;
+		exit(1);
 	}
+
+	yuka::Compiler *compiler = new yuka::Compiler();
+	yuka::ByteCode *bc = compiler->compile(argv[1], strlen(argv[1]));
+
+	yuka::VM *vm = new yuka::VM;
+	yuka::t_yuka_value result = vm->run(bc);
+
+	if (result.type == yuka::ValueType_Integer) {
+		cout << result.int_value << endl;
+	} else {
+		cout << result.float_value << endl;
+	}
+
+	delete bc;
+	delete compiler;
+	delete vm;
+
+	return 0;
 }
 
-}; //namespace
