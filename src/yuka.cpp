@@ -20,6 +20,8 @@
 
 #include <iostream>
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 #include "compiler.h"
 #include "vm.h"
@@ -27,16 +29,22 @@
 using namespace std;
 
 int main (int argc, const char * argv[]) {
-	char expression[] = "(1/4) * (4 - 1/2)";
+	if (argc != 2) {
+		cout << "Usage: " << argv[0] << " expr" << endl;
+		exit(1);
+	}
 
 	yuka::Compiler *compiler = new yuka::Compiler();
-	yuka::ByteCode *bc = compiler->compile(expression, strlen(expression));
+	yuka::ByteCode *bc = compiler->compile(argv[1], strlen(argv[1]));
 
 	yuka::VM *vm = new yuka::VM;
 	yuka::t_yuka_value result = vm->run(bc);
 
-	cout << "Result: " << result.int_value << endl;
-	cout << "Result: " << result.float_value << endl;
+	if (result.type == yuka::ValueType_Integer) {
+		cout << result.int_value << endl;
+	} else {
+		cout << result.float_value << endl;
+	}
 
 	delete bc;
 	delete compiler;

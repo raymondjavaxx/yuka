@@ -33,7 +33,7 @@
 
 namespace yuka {
 
-ByteCode *Compiler::compile(char *data, size_t len) {
+ByteCode *Compiler::compile(const char *data, size_t len) {
 	Parser *parser = new Parser();
 	TokenObjVector tokens = parser->parse(data, len);
 	tokens = shuntingYard(tokens);

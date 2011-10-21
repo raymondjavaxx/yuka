@@ -114,7 +114,7 @@ namespace yuka {
 		Parser();
 		virtual ~Parser();
 
-		TokenObjVector parse(char *data, size_t len);
+		TokenObjVector parse(const char *data, size_t len);
 	private:
 	/* data */
 	};

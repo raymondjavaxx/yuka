@@ -113,16 +113,16 @@ Parser::~Parser() {
 	//destroy
 }
 
-TokenObjVector Parser::parse(char *data, size_t len) {
+TokenObjVector Parser::parse(const char *data, size_t len) {
 	std::vector<TokenObj*> tokens;
 
-	char *p = data;
-	char *pe = data + len;
+	const char *p = data;
+	const char *pe = data + len;
 	int cs;
 	int act;
-	char *ts;
-	char *te;
-	char *eof = pe;
+	const char *ts;
+	const char *te;
+	const char *eof = pe;
 	//int curline = 1;
 
 	
