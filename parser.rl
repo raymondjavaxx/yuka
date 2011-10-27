@@ -147,9 +147,9 @@ TokenObjVector Parser::parse(const char *data, size_t len) {
 	const char *pe = data + len;
 	int cs;
 	int act;
-	char *ts;
-	char *te;
-	char *eof = pe;
+	const char *ts;
+	const char *te;
+	const char *eof = pe;
 	//int curline = 1;
 
 	%% write init;
