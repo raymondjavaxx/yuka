@@ -59,41 +59,41 @@ ByteCode *Compiler::compile(const char *data, size_t len) {
 
 		case Token_Pow: {
 			YUKA_DEBUG("exp\n");
-			bc->addOpcode(op_pow);
+			bc->addOpcode(Op_Pow);
 		}
 		break;
 
 		case Token_Add: {
 			YUKA_DEBUG("add\n");
-			bc->addOpcode(op_add);
+			bc->addOpcode(Op_Add);
 		}
 		break;
 
 		case Token_Sub: {
 			YUKA_DEBUG("sub\n");
-			bc->addOpcode(op_sub);
+			bc->addOpcode(Op_Sub);
 		}
 		break;
 
 		case Token_Mul: {
 			YUKA_DEBUG("mul\n");
-			bc->addOpcode(op_mul);
+			bc->addOpcode(Op_Mul);
 		}
 		break;
 
 		case Token_Div: {
 			YUKA_DEBUG("div\n");
-			bc->addOpcode(op_div);
+			bc->addOpcode(Op_Div);
 		}
 		break;
 
 		default:
-			bc->addOpcode(op_noop);
+			bc->addOpcode(Op_NOP);
 		break;
 		}
 	}
 
-	bc->addOpcode(op_eof);
+	bc->addOpcode(Op_EOF);
 
 	return bc;
 }

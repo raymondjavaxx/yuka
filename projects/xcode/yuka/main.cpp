@@ -21,7 +21,7 @@ int main (int argc, const char * argv[]) {
 	yuka::ByteCode *bc = compiler->compile(expression, strlen(expression));
 	
 	yuka::VM *vm = new yuka::VM;
-	yuka::t_yuka_value result = vm->run(bc);
+	yuka::Value result = vm->run(bc);
 
 	cout << "Result: " << result.int_value << endl;
 	cout << "Result: " << result.float_value << endl;

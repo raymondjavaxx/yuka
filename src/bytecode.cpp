@@ -60,14 +60,14 @@ void ByteCode::addOpcode(Opcode op) {
 }
 
 void ByteCode::newInteger(int n) {
-	addOpcode(op_new_integer);
+	addOpcode(Op_NewInteger);
 	resize(sizeof(int));
 	memcpy(m_code+m_size, &n, sizeof(n));
 	m_size += sizeof(n);
 }
 
 void ByteCode::newFloat(float n) {
-	addOpcode(op_new_float);
+	addOpcode(Op_NewFloat);
 	resize(sizeof(float));
 	memcpy(m_code+m_size, &n, sizeof(n));
 	m_size += sizeof(n);

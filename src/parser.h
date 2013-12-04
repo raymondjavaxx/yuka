@@ -44,11 +44,11 @@ namespace yuka {
 		ValueType_Float
 	};
 
-	typedef struct {
+	struct Value {
 		ValueType type;
 		int int_value;
 		float float_value;
-	} t_yuka_value;
+	};
 
 	class TokenObj
 	{
@@ -56,7 +56,7 @@ namespace yuka {
 		TokenObj(Token type) {
 			m_type = type;
 			m_int_value = 0;
-			::memset(&m_value, 0, sizeof(t_yuka_value));
+			::memset(&m_value, 0, sizeof(Value));
 		}
 
 		ValueType getValueType() {
@@ -81,11 +81,11 @@ namespace yuka {
 			return m_value.float_value;
 		}
 
-		void setValue(t_yuka_value value) {
+		void setValue(Value value) {
 			m_value = value;
 		}
 
-		t_yuka_value getValue() {
+		Value getValue() {
 			return m_value;
 		}
 
@@ -104,7 +104,7 @@ namespace yuka {
 	protected:
 		Token m_type;
 		int m_int_value;
-		t_yuka_value m_value;
+		Value m_value;
 	};
 
 	typedef std::vector<TokenObj*> TokenObjVector;

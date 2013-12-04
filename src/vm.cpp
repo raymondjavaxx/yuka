@@ -30,23 +30,23 @@ namespace yuka {
 #define IntegerValue(val) \
 	((val.type == ValueType_Integer) ? val.int_value : static_cast<int>(val.float_value))
 
-static inline t_yuka_value MakeFloat(float f) {
-	t_yuka_value v;
-	memset(&v, 0, sizeof(t_yuka_value));
+static inline Value MakeFloat(float f) {
+	Value v;
+	memset(&v, 0, sizeof(Value));
 	v.type = ValueType_Float;
 	v.float_value = f;
 	return v;
 }
 
-static inline t_yuka_value MakeInteger(int n) {
-	t_yuka_value v;
-	memset(&v, 0, sizeof(t_yuka_value));
+static inline Value MakeInteger(int n) {
+	Value v;
+	memset(&v, 0, sizeof(Value));
 	v.type = ValueType_Integer;
 	v.int_value = n;
 	return v;
 }
 
-t_yuka_value VM::run(ByteCode *bc) {
+Value VM::run(ByteCode *bc) {
 	const char *code = bc->getCode();
 	int code_size = bc->getSize();
 	int code_pos = 0;
@@ -56,7 +56,7 @@ t_yuka_value VM::run(ByteCode *bc) {
 
 		switch (op)
 		{
-		case op_new_integer: {
+		case Op_NewInteger: {
 			int n;
 			memcpy(&n, code+code_pos, sizeof(int));
 			m_stack.push(MakeInteger(n));
@@ -64,7 +64,7 @@ t_yuka_value VM::run(ByteCode *bc) {
 		}
 		break;
 
-		case op_new_float: {
+		case Op_NewFloat: {
 			float f;
 			memcpy(&f, code+code_pos, sizeof(float));
 			m_stack.push(MakeFloat(f));
@@ -72,14 +72,14 @@ t_yuka_value VM::run(ByteCode *bc) {
 		}
 		break;
 
-		case op_add: {
-			t_yuka_value a = m_stack.top();
+		case Op_Add: {
+			Value a = m_stack.top();
 			m_stack.pop();
 
-			t_yuka_value b = m_stack.top();
+			Value b = m_stack.top();
 			m_stack.pop();
 
-			t_yuka_value v;
+			Value v;
 
 			if (a.type == ValueType_Float || b.type == ValueType_Float) {
 				v = MakeFloat(FloatValue(a) + FloatValue(b));
@@ -91,14 +91,14 @@ t_yuka_value VM::run(ByteCode *bc) {
 		}
 		break;
 
-		case op_sub: {
-			t_yuka_value a = m_stack.top();
+		case Op_Sub: {
+			Value a = m_stack.top();
 			m_stack.pop();
 
-			t_yuka_value b = m_stack.top();
+			Value b = m_stack.top();
 			m_stack.pop();
 
-			t_yuka_value v;
+			Value v;
 
 			if (a.type == ValueType_Float || b.type == ValueType_Float) {
 				v = MakeFloat(FloatValue(b) - FloatValue(a));
@@ -110,14 +110,14 @@ t_yuka_value VM::run(ByteCode *bc) {
 		}
 		break;
 
-		case op_mul: {
-			t_yuka_value a = m_stack.top();
+		case Op_Mul: {
+			Value a = m_stack.top();
 			m_stack.pop();
 
-			t_yuka_value b = m_stack.top();
+			Value b = m_stack.top();
 			m_stack.pop();
 
-			t_yuka_value v;
+			Value v;
 
 			if (a.type == ValueType_Float || b.type == ValueType_Float) {
 				v = MakeFloat(FloatValue(b) * FloatValue(a));
@@ -129,32 +129,32 @@ t_yuka_value VM::run(ByteCode *bc) {
 		}
 		break;
 
-		case op_div: {
-			t_yuka_value a = m_stack.top();
+		case Op_Div: {
+			Value a = m_stack.top();
 			m_stack.pop();
 
-			t_yuka_value b = m_stack.top();
+			Value b = m_stack.top();
 			m_stack.pop();
 
-			t_yuka_value v = MakeFloat(FloatValue(b) / FloatValue(a));
+			Value v = MakeFloat(FloatValue(b) / FloatValue(a));
 			m_stack.push(v);
 		}
 		break;
 
-		case op_pow: {
-			t_yuka_value exponent = m_stack.top();
+		case Op_Pow: {
+			Value exponent = m_stack.top();
 			m_stack.pop();
 
-			t_yuka_value base = m_stack.top();
+			Value base = m_stack.top();
 			m_stack.pop();
 
-			t_yuka_value result = MakeFloat(::pow(FloatValue(base), FloatValue(exponent)));
+			Value result = MakeFloat(::pow(FloatValue(base), FloatValue(exponent)));
 			m_stack.push(result);
 		}
 		break;
 
-		case op_noop:
-		case op_eof:
+		case Op_NOP:
+		case Op_EOF:
 		break;
 		}
 	}

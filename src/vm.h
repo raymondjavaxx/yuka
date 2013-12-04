@@ -30,10 +30,10 @@ namespace yuka {
 	class VM
 	{
 	public:
-		t_yuka_value run(ByteCode *bc);
+		Value run(ByteCode *bc);
 
 	private:
-		std::stack<t_yuka_value> m_stack;
+		std::stack<Value> m_stack;
 	};
 };
 

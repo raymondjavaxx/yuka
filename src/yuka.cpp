@@ -38,7 +38,7 @@ int main (int argc, const char * argv[]) {
 	yuka::ByteCode *bc = compiler->compile(argv[1], strlen(argv[1]));
 
 	yuka::VM *vm = new yuka::VM;
-	yuka::t_yuka_value result = vm->run(bc);
+	yuka::Value result = vm->run(bc);
 
 	if (result.type == yuka::ValueType_Integer) {
 		cout << result.int_value << endl;

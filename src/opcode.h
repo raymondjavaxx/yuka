@@ -24,15 +24,15 @@
 namespace yuka {
 
 	enum Opcode {
-		op_noop = 0x00,
-		op_eof,
-		op_new_integer,
-		op_new_float,
-		op_add,
-		op_sub,
-		op_mul,
-		op_div,
-		op_pow
+		Op_NOP = 0x00,
+		Op_EOF,
+		Op_NewInteger,
+		Op_NewFloat,
+		Op_Add,
+		Op_Sub,
+		Op_Mul,
+		Op_Div,
+		Op_Pow
 	};
 };
 
