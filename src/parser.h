@@ -23,8 +23,12 @@
 
 #include <string.h>
 #include <vector>
+#include <stdint.h>
 
 namespace yuka {
+
+	typedef double YukaFloat;
+	typedef uint64_t YukaInt;
 
 	enum Token {
 		Token_Invalid = 0,
@@ -46,8 +50,8 @@ namespace yuka {
 
 	struct Value {
 		ValueType type;
-		int int_value;
-		float float_value;
+		YukaInt   int_value;
+		YukaFloat float_value;
 	};
 
 	class TokenObj
@@ -55,7 +59,6 @@ namespace yuka {
 	public:
 		TokenObj(Token type) {
 			m_type = type;
-			m_int_value = 0;
 			::memset(&m_value, 0, sizeof(Value));
 		}
 
@@ -63,21 +66,21 @@ namespace yuka {
 			return m_value.type;
 		}
 
-		void setIntValue(int value) {
+		void setIntValue(YukaInt value) {
 			m_value.type = ValueType_Integer;
 			m_value.int_value = value;
 		}
 		
-		int getIntValue() {
+		YukaInt getIntValue() {
 			return m_value.int_value;
 		}
 
-		void setFloatValue(float value) {
+		void setFloatValue(YukaFloat value) {
 			m_value.type = ValueType_Float;
 			m_value.float_value = value;
 		}
 
-		float getFloatValue() {
+		YukaFloat getFloatValue() {
 			return m_value.float_value;
 		}
 
@@ -103,7 +106,6 @@ namespace yuka {
 
 	protected:
 		Token m_type;
-		int m_int_value;
 		Value m_value;
 	};
 

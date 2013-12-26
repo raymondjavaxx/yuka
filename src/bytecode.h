@@ -22,6 +22,7 @@
 #define _YUKA_BYTECODE_H
 
 #include "opcode.h"
+#include "parser.h"
 
 namespace yuka {
 
@@ -29,21 +30,21 @@ namespace yuka {
 	{
 	public:
 		ByteCode();
-		ByteCode(char *c, unsigned int s);
+		ByteCode(char *c, size_t s);
 		virtual ~ByteCode();
 
 		unsigned int getSize();
 		const char * getCode();
 
-		void newInteger(int n);
-		void newFloat(float n);
+		void newInteger(YukaInt n);
+		void newFloat(YukaFloat n);
 		void addOpcode(Opcode op);
 
 	private:
-		void resize(unsigned int s);
+		void resize(size_t s);
 		char *m_code;
-		unsigned int m_size;
-		unsigned int m_buffer_size;
+		size_t m_size;
+		size_t m_buffer_size;
 	};
 };
 

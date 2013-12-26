@@ -26,7 +26,7 @@
 
 namespace yuka {
 
-const int kDefaultBufferSize = 32;
+const int kDefaultBufferSize = 64;
 
 ByteCode::ByteCode() {
 	m_code = (char*)malloc(kDefaultBufferSize);
@@ -39,7 +39,7 @@ ByteCode::~ByteCode() {
 	free(m_code);
 }
 
-ByteCode::ByteCode(char *c, unsigned int s) {
+ByteCode::ByteCode(char *c, size_t s) {
 	m_code = (char*)malloc(s);
 	memcpy(m_code, c, s);
 	m_size = s;
@@ -59,22 +59,22 @@ void ByteCode::addOpcode(Opcode op) {
 	m_code[m_size++] = op;
 }
 
-void ByteCode::newInteger(int n) {
+void ByteCode::newInteger(YukaInt n) {
 	addOpcode(Op_NewInteger);
-	resize(sizeof(int));
+	resize(sizeof(YukaInt));
 	memcpy(m_code+m_size, &n, sizeof(n));
 	m_size += sizeof(n);
 }
 
-void ByteCode::newFloat(float n) {
+void ByteCode::newFloat(YukaFloat n) {
 	addOpcode(Op_NewFloat);
-	resize(sizeof(float));
+	resize(sizeof(YukaFloat));
 	memcpy(m_code+m_size, &n, sizeof(n));
 	m_size += sizeof(n);
 }
 
-void ByteCode::resize(unsigned int s) {
-	unsigned int new_size = m_size + s;
+void ByteCode::resize(size_t s) {
+	size_t new_size = m_size + s;
 
 	if (new_size > m_buffer_size) {
 		m_buffer_size = (new_size * 2);

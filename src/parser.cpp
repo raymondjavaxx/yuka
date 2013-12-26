@@ -183,7 +183,7 @@ _resume:
 			else if ( (*p) > *_mid )
 				_lower = _mid + 1;
 			else {
-				_trans += (_mid - _keys);
+				_trans += (unsigned int)(_mid - _keys);
 				goto _match;
 			}
 		}
@@ -206,7 +206,7 @@ _resume:
 			else if ( (*p) > _mid[1] )
 				_lower = _mid + 2;
 			else {
-				_trans += ((_mid - _keys)>>1);
+				_trans += (unsigned int)((_mid - _keys)>>1);
 				goto _match;
 			}
 		}
@@ -285,8 +285,8 @@ _eof_trans:
 	case 9:
 /* #line 106 "parser.rl" */
 	{te = p;p--;{
-			char number[32] = {0};
-			strncpy(number, ts, MIN(te-ts, 32));
+			char number[64] = {0};
+			strncpy(number, ts, MIN(te-ts, 64));
 			YUKA_DEBUGF("number %d\n", atoi(number))
 
 			TokenObj *obj = new TokenObj(Token_Number);
@@ -298,12 +298,12 @@ _eof_trans:
 	case 10:
 /* #line 117 "parser.rl" */
 	{te = p;p--;{
-		  char number[32] = {0};
-		  strncpy(number, ts, MIN(te-ts, 32));
+		  char number[64] = {0};
+		  strncpy(number, ts, MIN(te-ts, 64));
 		  YUKA_DEBUGF("number %f\n", atof(number))
 
 		  TokenObj *obj = new TokenObj(Token_Number);
-		  obj->setFloatValue(static_cast<float>(atof(number)));
+		  obj->setFloatValue(static_cast<YukaFloat>(atof(number)));
 
 		  tokens.push_back(obj);
     }}

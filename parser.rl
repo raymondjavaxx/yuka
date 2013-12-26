@@ -104,8 +104,8 @@ namespace yuka {
 		};
 
 		digit+ {
-			char number[32] = {0};
-			strncpy(number, ts, MIN(te-ts, 32));
+			char number[64] = {0};
+			strncpy(number, ts, MIN(te-ts, 64));
 			YUKA_DEBUGF("number %d\n", atoi(number))
 
 			TokenObj *obj = new TokenObj(Token_Number);
@@ -115,12 +115,12 @@ namespace yuka {
 		};
 
     digit* '.' digit+ | digit+ '.' {
-		  char number[32] = {0};
-		  strncpy(number, ts, MIN(te-ts, 32));
+		  char number[64] = {0};
+		  strncpy(number, ts, MIN(te-ts, 64));
 		  YUKA_DEBUGF("number %f\n", atof(number))
 
 		  TokenObj *obj = new TokenObj(Token_Number);
-		  obj->setFloatValue(static_cast<float>(atof(number)));
+		  obj->setFloatValue(static_cast<YukaFloat>(atof(number)));
 
 		  tokens.push_back(obj);
     };

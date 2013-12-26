@@ -25,12 +25,12 @@
 namespace yuka {
 
 #define FloatValue(val) \
-	((val.type == ValueType_Float) ? val.float_value : static_cast<float>(val.int_value))
+	((val.type == ValueType_Float) ? val.float_value : static_cast<YukaFloat>(val.int_value))
 
 #define IntegerValue(val) \
-	((val.type == ValueType_Integer) ? val.int_value : static_cast<int>(val.float_value))
+	((val.type == ValueType_Integer) ? val.int_value : static_cast<YukaInt>(val.float_value))
 
-static inline Value MakeFloat(float f) {
+static inline Value MakeFloat(YukaFloat f) {
 	Value v;
 	memset(&v, 0, sizeof(Value));
 	v.type = ValueType_Float;
@@ -38,7 +38,7 @@ static inline Value MakeFloat(float f) {
 	return v;
 }
 
-static inline Value MakeInteger(int n) {
+static inline Value MakeInteger(YukaInt n) {
 	Value v;
 	memset(&v, 0, sizeof(Value));
 	v.type = ValueType_Integer;
@@ -57,18 +57,18 @@ Value VM::run(ByteCode *bc) {
 		switch (op)
 		{
 		case Op_NewInteger: {
-			int n;
-			memcpy(&n, code+code_pos, sizeof(int));
+			YukaInt n;
+			memcpy(&n, code+code_pos, sizeof(YukaInt));
 			m_stack.push(MakeInteger(n));
-			code_pos += sizeof(int);
+			code_pos += sizeof(YukaInt);
 		}
 		break;
 
 		case Op_NewFloat: {
-			float f;
-			memcpy(&f, code+code_pos, sizeof(float));
+			YukaFloat f;
+			memcpy(&f, code+code_pos, sizeof(YukaFloat));
 			m_stack.push(MakeFloat(f));
-			code_pos += sizeof(float);
+			code_pos += sizeof(YukaFloat);
 		}
 		break;
 
